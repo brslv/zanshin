@@ -1,0 +1,22 @@
+{
+    "name": "borislavgrigorov/zanshin",
+    "description": "Zanshin is a mindful framework.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Borislav Grigorov",
+            "email": "borislav.b.grigorov@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "pimple/pimple": "~3.0",
+        "dannyvankooten/php-router": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zanshin\\": "./Zanshin",
+            "App\\": "./App"
+        }
+    }
+}
