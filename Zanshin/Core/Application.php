@@ -19,6 +19,11 @@ class Application
     private $router;
 
     /**
+     * The default application routes.php file.
+     */
+    const DEFAULT_APPLICATION_ROUTES_FILE = "App/routes.php";
+
+    /**
      * Constructor.
      *
      * @param RouterContract $router
@@ -29,13 +34,28 @@ class Application
     }
 
     /**
+     * Sets the controllers namespace.
+     *
+     * @param string $namespace
+     * @return $this
+     */
+    public function setControllersNamespace($namespace)
+    {
+        $this->router->setControllerNamespace($namespace);
+
+        return $this;
+    }
+
+    /**
      * Run.
      *
      * @return void
      */
     public function run()
     {
-        $this->router->dispatch();
+        $routes = include self::DEFAULT_APPLICATION_ROUTES_FILE;
+
+        $this->router->addSome($routes)->dispatch();
     }
 
 }

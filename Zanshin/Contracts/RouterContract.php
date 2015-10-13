@@ -14,13 +14,20 @@ interface RouterContract
     /**
      * Adds a new route to the routes collection.
      *
-     * @param $httpMethod
-     * @param $_route
-     * @param $controller
+     * @param $httpMethods
+     * @param $route
      * @param $action
      * @return mixed
      */
-    public function add($httpMethods, $_route, $action);
+    public function add($httpMethods, $route, $action);
+
+    /**
+     * Allows the user to add many routes, using array.
+     *
+     * @param array $routes
+     * @return mixed
+     */
+    public function addSome(array $routes);
 
     /**
      * Performs a dispatching mechanism.
@@ -28,5 +35,13 @@ interface RouterContract
      * @return mixed
      */
     public function dispatch();
+
+    /**
+     * Sets the controller namespace for the app.
+     *
+     * @param $namespace
+     * @return mixed
+     */
+    public function setControllerNamespace($namespace);
 
 }

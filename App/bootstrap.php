@@ -3,4 +3,4 @@
 /**
  * Boots the application.
  */
-(new \Zanshin\Core\Boot)->application();
+(new \App\Core\Boot)->application();

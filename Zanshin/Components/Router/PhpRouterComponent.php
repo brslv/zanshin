@@ -49,7 +49,7 @@ class PhpRouterComponent implements RouterContract
     }
 
     /**
-     * Sets the controller folder.
+     * Sets the controller namespace.
      *
      * @param string $namespace
      * @return $this
@@ -135,20 +135,44 @@ class PhpRouterComponent implements RouterContract
     }
 
     /**
+     * Add many routes form array.
+     *
+     * @param array $routes
+     * @return $this
+     */
+    public function addSome(array $routes)
+    {
+        foreach ($routes as $route) {
+            if (is_array($route) && count($route) == 3) {
+                $_method = $route[0];
+                $_route = $route[1];
+                $_action = $route[2];
+
+                $this->add($_method, $_route, $_action);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Performs a dispatching mechanism.
      *
      * @return void
      */
     public function dispatch()
     {
-        $this->setControllerNamespace('\Zanshin\Controllers');
-        $this->add("GET", "/aloha", "HomeController@aloha");
-
         $this->router = new Router($this->routeCollection);
-        $this->router->setBasePath("/");
-        $route = $this->router->matchCurrentRequest();
 
-        var_dump($route);
+        $this->router->setBasePath("/");
+
+        if ( ! $this->router->matchCurrentRequest()) {
+            // TODO: Abstract the http_response_code function in a Response class.
+
+            http_response_code(404);
+
+            echo "404. Page not found.";
+        }
     }
 
 }
