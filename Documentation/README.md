@@ -21,9 +21,6 @@ Here's how:
 ```php
 <?php
 
-/**
-<?php
-
 // App/routes.php
 
 return [
