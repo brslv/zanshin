@@ -14,9 +14,10 @@ interface RouterContract
     /**
      * Adds a new route to the routes collection.
      *
-     * @param $httpMethods
-     * @param $route
-     * @param $action
+     * @param string $httpMethods
+     * @param string $route
+     * @param string $action
+     * @param string|null $name
      * @return mixed
      */
     public function add($httpMethods, $route, $action, $name = null);
@@ -30,6 +31,15 @@ interface RouterContract
     public function addSome(array $routes);
 
     /**
+     * Generates a url for a given route.
+     *
+     * @param string $route
+     * @param array $params
+     * @return mixed
+     */
+    public function generate($route, array $params = []);
+
+    /**
      * Performs a dispatching mechanism.
      *
      * @return mixed
@@ -39,7 +49,7 @@ interface RouterContract
     /**
      * Sets the controller namespace for the app.
      *
-     * @param $namespace
+     * @param string $namespace
      * @return mixed
      */
     public function setControllersNamespace($namespace);

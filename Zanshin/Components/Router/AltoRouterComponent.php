@@ -54,9 +54,9 @@ class AltoRouterComponent implements RouterContract
     /**
      * Adds a new route to the routes collection.
      *
-     * @param $httpMethods
-     * @param $route
-     * @param $action
+     * @param string $httpMethods
+     * @param string $route
+     * @param string $action
      * @param null $name
      * @return mixed
      * @throws \Exception
@@ -89,7 +89,7 @@ class AltoRouterComponent implements RouterContract
     /**
      * Checks if a given action is valid.
      *
-     * @param $action
+     * @param string $action
      * @return bool
      */
     private function isValidAction($action)
@@ -106,12 +106,17 @@ class AltoRouterComponent implements RouterContract
     public function addSome(array $routes)
     {
         foreach ($routes as $route) {
-            if (is_array($route) && count($route) == 3) {
+            if (is_array($route) && count($route) >= 3) {
                 $_method = $route[0];
                 $_route = $route[1];
                 $_action = $route[2];
+                $name = null;
 
-                $this->add($_method, $_route, $_action);
+                if (isset($route[3])) {
+                    $name = $route[3];
+                }
+
+                $this->add($_method, $_route, $_action, $name);
             }
         }
 
@@ -121,7 +126,7 @@ class AltoRouterComponent implements RouterContract
     /**
      * Sets the controllers namespace for the app.
      *
-     * @param $namespace
+     * @param string $namespace
      * @return mixed
      * @throws \Exception
      */
@@ -135,7 +140,7 @@ class AltoRouterComponent implements RouterContract
     /**
      * Normalizes a given namespace.
      *
-     * @param $namespace
+     * @param string $namespace
      * @return string
      * @throws \Exception
      */
@@ -148,6 +153,19 @@ class AltoRouterComponent implements RouterContract
         }
 
         return rtrim($_namespace, "\\") . "\\";
+    }
+
+    /**
+     * Generates url for a given route.
+     *
+     * @param string $route
+     * @param array $params
+     * @return string
+     * @throws \Exception
+     */
+    public function generate($route, array $params = [])
+    {
+        return $this->altoRouter->generate($route, $params);
     }
 
     /**
@@ -175,7 +193,7 @@ class AltoRouterComponent implements RouterContract
     /**
      * Calls the controller/action if any match.
      *
-     * @param $match
+     * @param array $match
      * @return void;
      */
     private function processMatch($match)

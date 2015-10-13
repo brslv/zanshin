@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Controllers;
-use App\TestClass;
-use Zanshin\Contracts\RouterContract;
 
 /**
  * Class HomeController

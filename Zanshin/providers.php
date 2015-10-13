@@ -10,4 +10,4 @@ use Zanshin\Providers\ApplicationProvider;
 
 container()->register(new ApplicationProvider()); // Application
 
-container()->register(new RouterProvider()); // PhpRouterComponent
+container()->register(new RouterProvider()); // AltoRouter

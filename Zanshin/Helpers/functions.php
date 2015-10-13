@@ -25,3 +25,16 @@ if ( ! function_exists("container")) {
         return is_null($thing) || ! is_string($thing) ? $container : $container[$thing];
     }
 }
+
+if ( ! function_exists("urlFor")) {
+
+    /**
+     * Quick and easy way to generate url for a specific route.
+     *
+     * @param string $route
+     * @return mixed
+     */
+    function urlFor($route) {
+        return container("RouterContract")->generate($route);
+    }
+}

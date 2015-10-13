@@ -20,6 +20,6 @@
 
 return [
 
-    ["GET", "/", "HomeController@index"],
+    ["GET", "/", "HomeController@index", "home"],
 
 ];

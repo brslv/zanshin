@@ -91,9 +91,10 @@ class PhpRouterComponent implements RouterContract
      * @param string $httpMethods HTTP methods, separated by "|"
      * @param string $route
      * @param string $action In the format "SomeController@action"
+     * @param null|string $name
      * @return mixed
      */
-    public function add($httpMethods, $route, $action)
+    public function add($httpMethods, $route, $action, $name = null)
     {
         $_route = $this->normalizeRoute($route);
         $_action = $this->normalizeAction($action);
