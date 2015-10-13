@@ -6,6 +6,7 @@ use Pimple\Container;
 use PHPRouter\Router;
 use PHPRouter\RouteCollection;
 use Pimple\ServiceProviderInterface;
+use Zanshin\Components\Router\AltoRouterComponent;
 use Zanshin\Components\Router\PhpRouterComponent;
 
 /**
@@ -26,8 +27,12 @@ class RouterProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         $container["RouterContract"] = $container->factory(function ($c) {
-            return new PhpRouterComponent();
+            return new AltoRouterComponent();
         });
+
+//        $container["RouterContract"] = $container->factory(function ($c) {
+//            return new PhpRouterComponent();
+//        });
     }
 
 }

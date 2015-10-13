@@ -40,6 +40,11 @@ class PhpRouterComponent implements RouterContract
     const DEFAULT_CONTROLLER_NAMESPACE = '\App\Controllers\\';
 
     /**
+     * The default base path.
+     */
+    const DEFAULT_BASE_PATH = "/";
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -55,7 +60,7 @@ class PhpRouterComponent implements RouterContract
      * @return $this
      * @throws \Exception
      */
-    public function setControllerNamespace($namespace)
+    public function setControllersNamespace($namespace)
     {
         $_namespace = $this->normalizeNamespace($namespace);
 
@@ -164,15 +169,40 @@ class PhpRouterComponent implements RouterContract
     {
         $this->router = new Router($this->routeCollection);
 
-        $this->router->setBasePath("/");
+        $this->router->setBasePath(self::DEFAULT_BASE_PATH);
 
         if ( ! $this->router->matchCurrentRequest()) {
+            // 404.
             // TODO: Abstract the http_response_code function in a Response class.
 
             http_response_code(404);
 
             echo "404. Page not found.";
         }
+    }
+
+    /**
+     * @return Router
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
+    /**
+     * @return RouteCollection
+     */
+    public function getRouteCollection()
+    {
+        return $this->routeCollection;
+    }
+
+    /**
+     * @return string
+     */
+    public function getControllerNamespace()
+    {
+        return $this->controllerNamespace;
     }
 
 }

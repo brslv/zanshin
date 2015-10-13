@@ -11,7 +11,10 @@
     "minimum-stability": "dev",
     "require": {
         "pimple/pimple": "~3.0",
-        "dannyvankooten/php-router": "dev-master"
+        "altorouter/altorouter": "1.1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.0.*"
     },
     "autoload": {
         "psr-4": {

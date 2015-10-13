@@ -41,7 +41,7 @@ class Application
      */
     public function setControllersNamespace($namespace)
     {
-        $this->router->setControllerNamespace($namespace);
+        $this->router->setControllersNamespace($namespace);
 
         return $this;
     }

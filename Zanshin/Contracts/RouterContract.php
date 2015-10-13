@@ -19,7 +19,7 @@ interface RouterContract
      * @param $action
      * @return mixed
      */
-    public function add($httpMethods, $route, $action);
+    public function add($httpMethods, $route, $action, $name = null);
 
     /**
      * Allows the user to add many routes, using array.
@@ -42,6 +42,6 @@ interface RouterContract
      * @param $namespace
      * @return mixed
      */
-    public function setControllerNamespace($namespace);
+    public function setControllersNamespace($namespace);
 
 }

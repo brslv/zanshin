@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controllers;
+use App\TestClass;
+use Zanshin\Contracts\RouterContract;
 
 /**
  * Class HomeController
@@ -13,7 +15,7 @@ class HomeController
 
     public function index()
     {
-        echo "<h1>What's up, bro?</h1>";
+        echo "<h1>This is Zanshin.</h1>";
     }
 
 }
