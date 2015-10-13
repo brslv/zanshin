@@ -28,9 +28,14 @@ class Application
         $this->router = $router;
     }
 
-    public function boot()
+    /**
+     * Run.
+     *
+     * @return void
+     */
+    public function run()
     {
-
+        echo "Running.";
     }
 
 }

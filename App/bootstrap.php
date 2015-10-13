@@ -1,11 +1,6 @@
 <?php
 
 /**
- * @var $app Zanshin\Core\Application
+ * Boots the application.
  */
-$app = container("Application");
-
-/**
- * Runs the application.
- */
-$app->boot();
+(new \Zanshin\Core\Boot)->application();
