@@ -2,6 +2,7 @@
 
 namespace Zanshin\Components\Router;
 
+use PHPRouter\Route;
 use PHPRouter\Router;
 use PHPRouter\RouteCollection;
 use Zanshin\Contracts\RouterContract;
@@ -29,27 +30,125 @@ class PhpRouterComponent implements RouterContract
     private $routeCollection;
 
     /**
-     * Constructor.
-     *
-     * @param Router $router
-     * @param RouteCollection $routeCollection
+     * @var string
      */
-    public function __construct(Router $router, RouteCollection $routeCollection)
+    private $controllerNamespace;
+
+    /**
+     * The default controller namespace.
+     */
+    const DEFAULT_CONTROLLER_NAMESPACE = '\App\Controllers\\';
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
     {
-        $this->router = $router;
-        $this->routeCollection = $routeCollection;
+        $this->routeCollection = new RouteCollection();
+        $this->controllerNamespace = self::DEFAULT_CONTROLLER_NAMESPACE;
     }
 
-    public function add($httpMethod, $route, $controller, $action)
+    /**
+     * Sets the controller folder.
+     *
+     * @param string $namespace
+     * @return $this
+     * @throws \Exception
+     */
+    public function setControllerNamespace($namespace)
     {
-        // TODO: add method implementation.
-        // Use as a reference: https://github.com/dannyvankooten/PHP-Router
+        $_namespace = $this->normalizeNamespace($namespace);
+
+        if ( ! is_string($_namespace) || empty($_namespace) || is_null($_namespace)) {
+            throw new \Exception("Controller namespace cannot be empty or non-string value.", 500);
+        }
+
+        $this->controllerNamespace = $_namespace;
+
+        return $this;
     }
 
-    public function match()
+    /**
+     * Normalizes a given namespace.
+     *
+     * @param $namespace
+     * @return string
+     */
+    private function normalizeNamespace($namespace)
     {
-        // TODO: add method implementation.
-        // Use as a reference: https://github.com/dannyvankooten/PHP-Router
+        $_namespace = trim($namespace);
+        return rtrim($_namespace, "\\") . "\\";
+    }
+
+    /**
+     * Adds new route to the routes collection.
+     *
+     * @param string $httpMethods HTTP methods, separated by "|"
+     * @param string $route
+     * @param string $action In the format "SomeController@action"
+     * @return mixed
+     */
+    public function add($httpMethods, $route, $action)
+    {
+        $_route = $this->normalizeRoute($route);
+        $_action = $this->normalizeAction($action);
+        $_methods = $this->extractMethods($httpMethods);
+
+        $_route = new Route($_route, [
+            "_controller" => $this->controllerNamespace . $_action,
+            "methods" => $_methods,
+        ]);
+
+        $this->routeCollection->attachRoute($_route);
+    }
+
+    /**
+     * Normalizes trailing slashes.
+     *
+     * @param string $route
+     * @return string string
+     */
+    private function normalizeRoute($route)
+    {
+        return rtrim($route, "/") . "/";
+    }
+
+    /**
+     * Normalizes action in the format PHP-Router requires.
+     *
+     * @param string $action
+     * @return string
+     */
+    private function normalizeAction($action)
+    {
+        return preg_replace("/@/", "::", $action);
+    }
+
+    /**
+     * Extracts the methods from the give string parameter.
+     * @param string $httpMethods
+     * @return array
+     */
+    private function extractMethods($httpMethods)
+    {
+        return explode("|", $httpMethods);
+    }
+
+    /**
+     * Performs a dispatching mechanism.
+     *
+     * @return void
+     */
+    public function dispatch()
+    {
+        $this->setControllerNamespace('\Zanshin\Controllers');
+        $this->add("GET", "/aloha", "HomeController@aloha");
+
+        $this->router = new Router($this->routeCollection);
+        $this->router->setBasePath("/");
+        $route = $this->router->matchCurrentRequest();
+
+        var_dump($route);
     }
 
 }

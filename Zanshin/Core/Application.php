@@ -35,7 +35,7 @@ class Application
      */
     public function run()
     {
-        echo "Running.";
+        $this->router->dispatch();
     }
 
 }

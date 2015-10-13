@@ -11,8 +11,22 @@ namespace Zanshin\Contracts;
 interface RouterContract
 {
 
-    public function add($httpMethod, $route, $controller, $action);
+    /**
+     * Adds a new route to the routes collection.
+     *
+     * @param $httpMethod
+     * @param $_route
+     * @param $controller
+     * @param $action
+     * @return mixed
+     */
+    public function add($httpMethods, $_route, $action);
 
-    public function match();
+    /**
+     * Performs a dispatching mechanism.
+     *
+     * @return mixed
+     */
+    public function dispatch();
 
 }
