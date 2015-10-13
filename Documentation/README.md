@@ -9,7 +9,7 @@ Zanshin is a minimalist PHP framework for developing basic web-applications.
 -- to be added.
 
 ## Routing
-The routing with *Zanshin* is pretty simple, actually. Under the hood the framework uses AltoRouter - a lightweight, yet extremely flexible and powerful routing engine.
+Routing with *Zanshin* is pretty simple, actually. Under the hood the framework uses [AltoRouter](http://altorouter.com) - a lightweight, yet extremely flexible and powerful routing engine.
 
 #### Registering routes
 *Zanshin* uses a pretty minimalistic way for registering routes.
@@ -29,3 +29,46 @@ return [
 
 ];
 ```
+
+The code above registers a single route, pointing to the **HomeController's index method**. There will be a valid match only if the request is **HTTP GET** on the **http://app.com/** url.
+
+#### Multiple HTTP methods
+Sometimes you'll need a way to make a certain controller/action pair respond to multiple HTTP methods - such as GET, POST, etc.
+
+You can do it like this:
+
+```php
+<?php
+
+// App/routes.php
+
+return [
+    
+    ["GET|POST", "/some/path", "SomeController@method"],
+    
+]
+```
+
+The **/some/path** uri will trigger the **SomeController's method** method on either a **GET** or **POST** request.
+
+#### Route parameters
+-- to be added.
+
+#### Named routes
+Naming routes is a convenient way to later generate links to a certain route. It works like this:
+
+```php
+<?php
+
+// App/routes.php
+
+return [
+    
+    ["GET", "/", "HomeController@index", "home"],
+    
+]
+```
+
+The code above will register a route, named **home**.
+
+If, somewhere in the app's lifecycle, you decide to generate a link to that route, you can use the **-- to be implemented. -- to be added.**
