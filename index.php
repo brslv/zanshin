@@ -7,7 +7,6 @@
  * It refers to a state of awareness – of relaxed alertness.
  * A literal translation of zanshin is "remaining mind".
  */
-
 ini_set("display_errors", 1);
 
 /**

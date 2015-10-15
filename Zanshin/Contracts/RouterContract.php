@@ -31,6 +31,15 @@ interface RouterContract
     public function addSome(array $routes);
 
     /**
+     * Add a new pattern to the existing ones.
+     *
+     * @param $alias
+     * @param $pattern
+     * @return mixed
+     */
+    public function addPattern($alias, $pattern);
+
+    /**
      * Generates a url for a given route.
      *
      * @param string $route
@@ -40,18 +49,18 @@ interface RouterContract
     public function generate($route, array $params = []);
 
     /**
-     * Performs a dispatching mechanism.
-     *
-     * @return mixed
-     */
-    public function dispatch();
-
-    /**
      * Sets the controller namespace for the app.
      *
      * @param string $namespace
      * @return mixed
      */
     public function setControllersNamespace($namespace);
+
+    /**
+     * Performs a dispatching mechanism.
+     *
+     * @return mixed
+     */
+    public function dispatch();
 
 }

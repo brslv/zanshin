@@ -4,8 +4,6 @@ namespace Zanshin\Components\Router;
 
 use Zanshin\Contracts\RouterContract;
 
-// TODO: wrap generate method! - https://github.com/dannyvankooten/AltoRouter/blob/master/tests/AltoRouterTest.php#L190
-
 /**
  * Class AltoRouterComponent
  *
@@ -83,7 +81,7 @@ class AltoRouterComponent implements RouterContract
      */
     private function normalizeRoute($route)
     {
-        return rtrim($route, "/");
+        return trim($route, "/");
     }
 
     /**
@@ -124,6 +122,33 @@ class AltoRouterComponent implements RouterContract
     }
 
     /**
+     * Add a new pattern to the existing ones.
+     *
+     * @param string $alias The pattern alias.
+     * @param string $pattern The regular expression pattern.
+     * @return $this
+     */
+    public function addPattern($alias, $pattern)
+    {
+        $this->altoRouter->addMatchTypes([$alias, $pattern]);
+
+        return $this;
+    }
+
+     /**
+     * Generates url for a given route.
+     *
+     * @param string $route
+     * @param array $params
+     * @return string
+     * @throws \Exception
+     */
+    public function generate($route, array $params = [])
+    {
+        return $this->altoRouter->generate($route, $params);
+    }
+
+    /**
      * Sets the controllers namespace for the app.
      *
      * @param string $namespace
@@ -153,19 +178,6 @@ class AltoRouterComponent implements RouterContract
         }
 
         return rtrim($_namespace, "\\") . "\\";
-    }
-
-    /**
-     * Generates url for a given route.
-     *
-     * @param string $route
-     * @param array $params
-     * @return string
-     * @throws \Exception
-     */
-    public function generate($route, array $params = [])
-    {
-        return $this->altoRouter->generate($route, $params);
     }
 
     /**
