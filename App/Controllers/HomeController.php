@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Zanshin\Components\Input\InputComponent;
+
 /**
  * Class HomeController
  *
