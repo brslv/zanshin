@@ -1,8 +1,16 @@
 <?php
 
+namespace Zanshin\tests;
+
 use Zanshin\Components\Input\InputComponent;
 
-class InputTest extends PHPUnit_Framework_TestCase
+/**
+ * Class InputTest
+ *
+ * @author brslv
+ * @package Zanshin\tests;
+ */
+class InputTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
