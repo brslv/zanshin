@@ -35,6 +35,7 @@ class InputComponent
      * Get a value from the $_GET superglobal.
      *
      * @param string $key The key to look for in $_GET.
+     * @return mixed
      */
     public function get($key = null)
     {
@@ -45,6 +46,7 @@ class InputComponent
      * Get a value from the $_POST superglobal.
      * 
      * @param string $key The key to look for in $_POST.
+     * @return mixed
      */
     public function post($key = null)
     {
@@ -56,6 +58,7 @@ class InputComponent
      * 
      * @param string $fromSuperglobal The superglobal to fetch value from.
      * @param string $key The key to look for in $_POST.
+     * @return mixed|null
      */
     private function fetch($fromSuperglobal, $key = null)
     {

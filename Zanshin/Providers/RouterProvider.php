@@ -3,11 +3,8 @@
 namespace Zanshin\Providers;
 
 use Pimple\Container;
-use PHPRouter\Router;
-use PHPRouter\RouteCollection;
 use Pimple\ServiceProviderInterface;
 use Zanshin\Components\Router\AltoRouterComponent;
-use Zanshin\Components\Router\PhpRouterComponent;
 
 /**
  * Class RouterProvider
@@ -23,6 +20,7 @@ class RouterProvider implements ServiceProviderInterface
      * as a service provider on the IoC container.
      *
      * @param Container $container
+     * @return AltoRouterComponent
      */
     public function register(Container $container)
     {

@@ -12,10 +12,19 @@ use Zanshin\Contracts\SessionContract;
  */
 class NativeSessionComponent implements SessionContract
 {
+    /**
+     * The default lifetime of the session.
+     */
     const DEFAULT_LIFETIME = 3600; // 60 minutes
 
+    /**
+     * The default secure of the session.
+     */
     const DEFAULT_SECURE = false;
 
+    /**
+     * The default name of the session.
+     */
     const DEFAULT_NAME = "___session";
 
     /**
@@ -90,12 +99,32 @@ class NativeSessionComponent implements SessionContract
     }
 
     /**
+     * Perform the actual start of the native php session.
+     *
+     * @return NativePhpSession
+     */
+    public function startNativePhpSession()
+    {
+        if ($this->getIsStarted()) {
+            throw new \Exception("Session has already been started.", 500);
+        }
+
+        session_start();
+
+        return $this;
+    }
+
+    /**
      * Destroys the current native session.
      *
      * @return NativeSessionComponent
      */
     public function destroy()
     {
+        if ( ! $this->getIsStarted()) {
+            throw new \Exception("No active session available.", 500);
+        }
+
         session_unset();
         session_destroy();
 

@@ -56,4 +56,30 @@ class NativeSessionComponentTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($_SESSION);
         $this->assertEquals(false, $session->getIsStarted());
     }
+
+    /**
+     * @expectedException Exception
+     * @runInSeparateProcess
+     */
+    public function testItThrowsExceptionOnDestroyingNonActiveSession()
+    {
+        $session = new Session();
+        $session->start();
+
+        $session->destroy(); // should destroy session
+        $session->destroy(); // should throw exception
+    }
+
+    /**
+     * @expectedException Exception
+     * @runInSeparateProcess
+     */
+    public function testItThrowsExceptionOnStartingAlreadyStartedSession()
+    {
+        $session = new Session();
+        $session->start();
+
+        $session->start(); // should throw exception
+    }
+    
 }
