@@ -25,7 +25,7 @@ class RouterProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         $container["RouterContract"] = function ($c) {
-            return new AltoRouterComponent();
+            return new AltoRouterComponent($c["SessionContract"]);
         };
     }
 

@@ -3,6 +3,7 @@
 namespace Zanshin\Components\Router;
 
 use Zanshin\Contracts\RouterContract;
+use Zanshin\Contracts\SessionContract;
 
 /**
  * Class AltoRouterComponent
@@ -12,6 +13,11 @@ use Zanshin\Contracts\RouterContract;
  */
 class AltoRouterComponent implements RouterContract
 {
+
+    /**
+     * @var SessionContract
+     */
+    private $session;
 
     /**
      * @var \AltoRouter
@@ -41,8 +47,9 @@ class AltoRouterComponent implements RouterContract
     /**
      * Constructor.
      */
-    public function __construct()
+    public function __construct(SessionContract $session)
     {
+        $this->session = $session;
         $this->altoRouter = new \AltoRouter();
         $this->altoRouter->setBasePath(self::DEFAULT_BASE_PATH);
 
@@ -222,6 +229,10 @@ class AltoRouterComponent implements RouterContract
         }
 
         list($controller, $action) = explode("@", $action);
+
+        // Generate the path for the default view (composed from controller & action).
+        $this->generatePathForDefaultView($controller, $action);
+
         $_controller = $this->controllerNamespace . $controller;
 
         // If a controller has been registered as a service
@@ -236,6 +247,24 @@ class AltoRouterComponent implements RouterContract
         call_user_func_array([$_controller, $action], $params);
 
         return;
+    }
+
+    // TODO: add this method to the contract.
+    public function generatePathForDefaultView($controller, $action) 
+    {
+        $parentFolder = substr($controller, 0, strpos($controller, "Controller"));
+        $_parentFolder = strtolower($parentFolder);
+        $view = $action;
+
+        $this->session->set("viewFolder", $_parentFolder);
+        $this->session->set("viewFile", $view);
+        $pathForDefaultView = $_parentFolder . "." . $view;
+        $this->session->set("defaultView", $pathForDefaultView);
+
+        // check if the folder/view exist
+        // if exist -> set defaultView
+        // if not -> don't do anything
+        return $pathForDefaultView;
     }
 
 }

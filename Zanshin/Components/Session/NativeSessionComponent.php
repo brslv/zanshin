@@ -161,6 +161,33 @@ class NativeSessionComponent implements SessionContract
     }
 
     /**
+     * Check if the session has a specific key.
+     *
+     * @param mixed $key
+     * @return bool
+     */
+    public function has($key)
+    {
+        return isset($_SESSION[$key]);
+    }
+
+    /**
+     * Remove a specific key from the session.
+     *
+     * @param mixed $key
+     * @return bool
+     */
+    public function remove($key)
+    {
+        if ($this->has($key)) {
+            unset($_SESSION[$key]);
+            return true;
+        } 
+
+        return false;
+    }
+
+    /**
      * Set name.
      *
      * @return string $name

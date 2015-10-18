@@ -5,6 +5,7 @@ use Zanshin\Providers\ApplicationProvider;
 use Zanshin\Providers\DotenvProvider;
 use Zanshin\Providers\SessionProvider;
 use Zanshin\Providers\InputProvider;
+use Zanshin\Providers\ViewProvider;
 
 /**
  * Providers.
@@ -21,3 +22,5 @@ container()->register(new RouterProvider()); // AltoRouterComponent
 container()->register(new SessionProvider()); // NativeSessionComponent
 
 container()->register(new InputProvider()); // InputComponent
+
+container()->register(new ViewProvider()); // TwigViewComponent

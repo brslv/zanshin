@@ -14,5 +14,5 @@
  * Register your controllers as services in this section.
  */
 container()["\App\Controllers\HomeController"] = function ($c) {
-    return new \App\Controllers\HomeController($c["InputContract"]);
+    return new \App\Controllers\HomeController($c["InputContract"], $c["ViewContract"]);
 };

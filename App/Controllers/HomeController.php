@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Zanshin\Contracts\InputContract;
-use Zanshin\Components\Input\InputComponent;
+use Zanshin\Contracts\ViewContract;
 
 /**
  * Class HomeController
@@ -15,6 +15,8 @@ class HomeController
 {
     private $input;
 
+    private $view;
+
     /**
      * Constructor.
      *
@@ -25,11 +27,13 @@ class HomeController
      * the dependencies of the controller (InputContract).
      *
      * @param InputContract $input
-     * @return void
+     * @param ViewContract $view
      */
-    public function __construct(InputContract $input) 
+    public function __construct(InputContract $input, ViewContract $view) 
     {
+        // TODO: extract this login in a base controller.
         $this->input = $input;
+        $this->view = $view;
     }
 
     /**
@@ -44,6 +48,8 @@ class HomeController
         if ($this->input->has("get", "name")) {
             echo sprintf("Aloha, %s", $this->input->get("name"));
         }
+
+        $this->view->render();
     }
 
 }
