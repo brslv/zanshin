@@ -2,6 +2,7 @@
 
 namespace Zanshin\Core;
 
+use Dotenv\Dotenv;
 use Zanshin\Contracts\RouterContract;
 
 /**
@@ -19,6 +20,11 @@ class Application
     private $router;
 
     /**
+     * @var Dotenv
+     */
+    private $env;
+
+    /**
      * The default application routes.php file.
      */
     const DEFAULT_APPLICATION_ROUTES_FILE = "App/routes.php";
@@ -28,9 +34,10 @@ class Application
      *
      * @param RouterContract $router
      */
-    public function __construct(RouterContract $router)
+    public function __construct(RouterContract $router, Dotenv $env)
     {
         $this->router = $router;
+        $this->env = $env;
     }
 
     /**
@@ -53,8 +60,9 @@ class Application
      */
     public function run()
     {
+        $this->env->load();
         $routes = include self::DEFAULT_APPLICATION_ROUTES_FILE;
-
+       
         $this->router->addSome($routes)->dispatch();
     }
 

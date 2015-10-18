@@ -10,6 +10,11 @@ use Zanshin\Providers\InputProvider;
  * on the app's dependency injection container.
  */
 
+// Register .env as a service.
+container()["Dotenv"] = function ($c) {
+    return new \Dotenv\Dotenv(__DIR__ . "/../");
+};
+
 container()->register(new ApplicationProvider()); // Application
 
 container()->register(new RouterProvider()); // AltoRouterComponent

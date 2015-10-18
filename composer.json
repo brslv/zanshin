@@ -12,7 +12,8 @@
     "require": {
         "pimple/pimple": "~3.0",
         "altorouter/altorouter": "1.1.0",
-        "monolog/monolog": "^1.16@dev"
+        "monolog/monolog": "^1.16@dev",
+        "vlucas/phpdotenv": "^2.1@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "5.0.*"

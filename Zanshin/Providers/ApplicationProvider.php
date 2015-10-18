@@ -25,7 +25,7 @@ class ApplicationProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         $container["Application"] = function ($c) {
-            return new Application($c["RouterContract"]);
+            return new Application($c["RouterContract"], $c["Dotenv"]);
         };
     }
 
