@@ -5,4 +5,4 @@
  * in the app's dependency injection container.
  */
 
-$container["db.user"] = "root";
+$container["__zanshin.db.user"] = "root";

@@ -20,6 +20,7 @@ if ( ! function_exists("container")) {
 
             require __DIR__ . "/../providers.php";
             require __DIR__ . "/../config.php";
+            require __DIR__ . "/../../App/config.php";
         }
 
         return is_null($thing) || ! is_string($thing) ? $container : $container[$thing];
