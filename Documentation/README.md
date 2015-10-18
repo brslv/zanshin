@@ -72,3 +72,57 @@ return [
 The code above will register a route, named **home**.
 
 If, somewhere in the app's lifecycle, you decide to generate a link to that route, you can use the **-- to be implemented. -- to be added.**
+
+## Input
+
+Zanshin comes with a tiny *Input* class, which abstracts away both *$_GET* and *$_POST* superglobals.
+
+```php 
+<?php
+
+// If you've registered ExampleController as a service in the providers file.
+
+use Zanshin\Contracts\InputContract
+
+class ExampleController
+{
+    private $input;
+
+    public function __construct(InputContract $input)
+    {
+        $this->input = $input;
+    }
+
+    public function RandomAction()
+    {
+        $input->get("value"); // get a value from $_GET
+
+        $input->post("value"); // get a value from $_POST
+    }
+}
+```
+
+```
+<?php
+
+// If you haven't registered your controller as a service.
+
+use Zanshin\Contracts\InputContract;
+
+class ExampleController
+{
+    private $input;
+
+    public function __construct()
+    {
+        $this->input = new InputComponent();
+    }
+
+    public function RandomAction() 
+    {
+        echo $this->input->get("value"); // echo a value from the $_GET
+
+        echo $this->input->post("value") // echo a value from the $_POST
+    }
+}
+```
