@@ -24,14 +24,27 @@ class ViewProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         $container["ViewContract"] = function ($c) {
-            $twigViewsDirectory = realpath(__DIR__ . "/../../App/" . $c["twig_views_directory"]);
+            $twigViewsDirectory = $this->normalizeDir($c["twig_views_directory"]);
+            $twigViewsCacheDirectory = false;
+
+            if ($c["twig_use_views_cache"] === true) {
+                $twigViewsCacheDirectory = $this->normalizeDir("Views/cache");
+            }
 
             $loader = new \Twig_Loader_Filesystem($twigViewsDirectory); // TODO: Extract in config
             $twig = new \Twig_Environment($loader, [
-                'cache' => $c["twig_views_cache_folder"], // TODO: Extract in config
+                'cache' => $twigViewsCacheDirectory, // TODO: Extract in config
             ]);
 
             return new TwigViewComponent($c["SessionContract"], $loader, $twig);
         };
+    }
+
+    private function normalizeDir($dir)
+    {
+        $_dir = ltrim($dir, "/");
+        $_dir = ltrim($_dir, "\\");
+
+        return realpath(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "App" . DIRECTORY_SEPARATOR . $_dir);
     }
 }

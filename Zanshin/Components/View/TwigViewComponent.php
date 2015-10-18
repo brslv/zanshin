@@ -28,10 +28,10 @@ class TwigViewComponent extends ViewComponentAbstract
         $this->twig = $twig;
     }
 
-    public function render($view = null, array $params = [])
+    public function render($view = null, array $params = [], $code = null)
     {
         if (is_null($view) && ! isset($this->defaultView)) {
-            throw new \LogicException("No specified view to be rendered", 500);
+            throw new \LogicException("Cannot resolve the view to be rendered.", 500);
         }
 
         if (isset($this->defaultView)) {
@@ -41,11 +41,25 @@ class TwigViewComponent extends ViewComponentAbstract
         $view = str_replace(container("twig_views_file_extension"), "", $view);
         $view = str_replace(".", DIRECTORY_SEPARATOR, $view) . container("twig_views_file_extension");
 
+        if ($code) {
+            http_response_code($code);
+        }
+
         $this->twig->display($view, $params);
+
+        return $this;
     }
 
+    /**
+     * Attach a specific HTTP status code to the response.
+     *
+     * @param int $code
+     * @return $this
+     */
     public function withCode($code) 
     {
+        http_response_code($code);
 
+        return $this;
     }
 }

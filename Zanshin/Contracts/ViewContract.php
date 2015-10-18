@@ -11,20 +11,14 @@ namespace Zanshin\Contracts;
 interface ViewContract
 {
     /**
-     * Set view folder path.
-     *
-     * @param string $path
-     * @return mixed 
-     */
-    public function setViewsFolderPath($path);
-
-    /**
      * Render a view.
      *
      * @param string|null $view
+     * @param array $parms
+     * @param int|null $code
      * @return mixed
      */
-    public function render($view = null);
+    public function render($view = null, array $parms = [], $code = null);
 
     /**
      * Attach a specific HTTP status code to the response.

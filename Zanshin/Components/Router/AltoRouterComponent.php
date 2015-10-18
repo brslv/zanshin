@@ -46,6 +46,8 @@ class AltoRouterComponent implements RouterContract
 
     /**
      * Constructor.
+     *
+     * @param SessionContract $session
      */
     public function __construct(SessionContract $session)
     {
@@ -197,13 +199,11 @@ class AltoRouterComponent implements RouterContract
         $match = $this->altoRouter->match();
 
         if ( ! $match) {
-            // 404.
-            // TODO: Abstract the http_response_code function in a Response class.
+            container("ViewContract")
+                ->render("errors.404")
+                ->withCode(404); // TODO: be sure that errors.404 exists - check it! Allow user add custom 404 file.
 
-            http_response_code(404);
-
-            echo "404. Page not found.";
-            exit;
+            exit();
         }
 
         $this->processMatch($match);

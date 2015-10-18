@@ -1,16 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Zanshin</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-</head>
-<body>
+{% extends "master.twig.html" %}
 
+{% block content %}
     <div class="container">
         <h1 style="margin-top: 100px;">Welcome abroad, <br /> {{ salute }}.</h1>
         <h3>This is {{ name }}.</h3>
     </div>
-
-</body>
-</html>
+{% endblock %}

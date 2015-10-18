@@ -15,8 +15,6 @@ abstract class ViewComponentAbstract implements ViewContract
 {
     protected $session;
 
-    protected $viewFolderPath;
-
     protected $defaultView;
 
     public function __construct(SessionContract $session)
@@ -35,19 +33,6 @@ abstract class ViewComponentAbstract implements ViewContract
         if ($this->session->has("defaultView")) {
             $this->defaultView = $this->session->get("defaultView"); // TODO: extract defaultView string in constant
         }
-
-        return $this;
-    }
-
-    /**
-     * Set the views folder path.
-     *
-     * @param string $path
-     * @return ViewComponent
-     */
-    public function setViewsFolderPath($path)
-    {
-        $this->viewFolderPath = $path;
 
         return $this;
     }

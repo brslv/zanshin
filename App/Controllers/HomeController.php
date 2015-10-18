@@ -31,7 +31,7 @@ class HomeController
      */
     public function __construct(InputContract $input, ViewContract $view) 
     {
-        // TODO: extract this login in a base controller.
+        // TODO: extract these in a base controller.
         $this->input = $input;
         $this->view = $view;
     }
@@ -43,13 +43,7 @@ class HomeController
      */
     public function index()
     {
-        echo "<h1>This is Zanshin.</h1>";
-
-        if ($this->input->has("get", "name")) {
-            echo sprintf("Aloha, %s", $this->input->get("name"));
-        }
-
-        $this->view->render();
+        $this->view->render("home.index", ["name" => "Zanshin", "salute" => "guest"])->withCode(200);
     }
 
 }
