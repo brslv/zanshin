@@ -3,12 +3,12 @@
 namespace Zanshin\Contracts;
 
 /**
- * Interface RouterContract
+ * Interface InputContract
  *
  * @author brslv
  * @package Zanshin\Contracts
  */
-interface RouterContract
+interface InputContract
 {
     /**
      * Get a value from the $_GET superglobal

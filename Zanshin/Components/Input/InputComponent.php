@@ -2,13 +2,15 @@
 
 namespace Zanshin\Components\Input;
 
+use Zanshin\Contracts\InputContract;
+
 /**
  * Class InputComponent
  *
  * @author brslv
  * @package Zanshin\Components\Input
  */
-class InputComponent
+class InputComponent implements InputContract
 {
     /**
      * Holds the $_GET and $_POST values.
