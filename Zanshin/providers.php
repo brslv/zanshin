@@ -7,8 +7,9 @@ use Zanshin\Providers\SessionProvider;
 use Zanshin\Providers\InputProvider;
 
 /**
- * Where all the services are prepared and registered
- * on the app's dependency injection container.
+ * Providers.
+ *
+ * The folloing rows register the core framework's service providers.
  */
 
 container()->register(new ApplicationProvider()); // Application

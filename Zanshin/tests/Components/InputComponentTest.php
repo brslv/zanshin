@@ -54,4 +54,14 @@ class InputTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($nom);
         $this->assertNull($yum);
     }
+
+    public function testItCorrectlyPerformsHas()
+    {
+        $this->inputs = new InputComponent();
+
+        $this->assertEquals(true, $this->inputs->has("post", "baz"));
+        $this->assertEquals(true, $this->inputs->has("get", "foo"));
+        $this->assertEquals(false, $this->inputs->has("post", "shiz"));
+        $this->assertEquals(false, $this->inputs->has("get", "shiz"));
+    }
 }

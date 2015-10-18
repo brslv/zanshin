@@ -18,6 +18,7 @@ if ( ! function_exists("container")) {
         if (is_null($container)) {
             $container = new \Pimple\Container();
 
+            require __DIR__ . "/../../App/app-providers.php";
             require __DIR__ . "/../providers.php";
             require __DIR__ . "/../config.php";
             require __DIR__ . "/../../App/config.php";

@@ -23,6 +23,16 @@ class InputComponent implements InputContract
     ];
 
     /**
+     * Allowed superglobals.
+     *
+     * @var array
+     */
+    protected $superglobalsWhitelist = [
+        "get",
+        "post",
+    ];
+
+    /**
      * Constructor.
      *
      * Fills the inputs array with values from the superglobals.
@@ -56,6 +66,18 @@ class InputComponent implements InputContract
     }
 
     /**
+     * Check if a value is present in $_GET or $_POST
+     *
+     * @param string $fromSuperglobal Either "post" or "get"
+     * @param string $key The key to search for
+     * @return bool
+     */
+    public function has($fromSuperglobal, $key)
+    {
+        return ! is_null($this->fetch($fromSuperglobal, $key));
+    }
+
+    /**
      * Fetch a value from the inputs array.
      * 
      * @param string $fromSuperglobal The superglobal to fetch value from.
@@ -64,6 +86,12 @@ class InputComponent implements InputContract
      */
     private function fetch($fromSuperglobal, $key = null)
     {
+        $fromSuperglobal = strtolower($fromSuperglobal);
+
+        if ( ! in_array($fromSuperglobal, $this->superglobalsWhitelist)) {
+            throw new \Exception(sprintf("No such superglobal: %s", $fromSuperglobal), 500);
+        }
+
         if ( ! is_null($key)) {
             if (isset($this->inputs[$fromSuperglobal][$key])) {
                 return $this->inputs[$fromSuperglobal][$key];

@@ -82,7 +82,7 @@ Zanshin comes with a tiny *Input* class, which abstracts away both *$_GET* and *
 
 // If you've registered ExampleController as a service in the providers file.
 
-use Zanshin\Contracts\InputContract
+use Zanshin\Contracts\InputContract;
 
 class ExampleController
 {
@@ -95,19 +95,19 @@ class ExampleController
 
     public function RandomAction()
     {
-        $input->get("value"); // get a value from $_GET
+        $this->input->get("value"); // get a value from $_GET
 
-        $input->post("value"); // get a value from $_POST
+        $this->input->post("value"); // get a value from $_POST
     }
 }
 ```
 
-```
+```php
 <?php
 
 // If you haven't registered your controller as a service.
 
-use Zanshin\Contracts\InputContract;
+use Zanshin\Components\Input\InputComponent;
 
 class ExampleController
 {
