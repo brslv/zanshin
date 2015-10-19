@@ -22,4 +22,6 @@ return [
 
     ["GET", "/", "HomeController@index", "home"],
 
+    ["GET", "/about", "HomeController@about", "about"],
+
 ];

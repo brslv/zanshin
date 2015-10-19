@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use Zanshin\Components\Controller\ControllerComponent as Controller;
 use Zanshin\Contracts\InputContract;
+use Zanshin\Contracts\SessionContract;
 use Zanshin\Contracts\ViewContract;
 
 /**
@@ -13,9 +15,11 @@ use Zanshin\Contracts\ViewContract;
  */
 class HomeController
 {
-    private $input;
 
-    private $view;
+    /**
+     * @var ViewContract
+     */
+    protected $view;
 
     /**
      * Constructor.
@@ -24,15 +28,12 @@ class HomeController
      * You can find the actual registration in the app-providers file.
      *
      * This is where the dependency injector mechanism injects
-     * the dependencies of the controller (InputContract).
+     * the dependencies of the controller.
      *
-     * @param InputContract $input
      * @param ViewContract $view
      */
-    public function __construct(InputContract $input, ViewContract $view) 
+    public function __construct(ViewContract $view)
     {
-        // TODO: extract these in a base controller.
-        $this->input = $input;
         $this->view = $view;
     }
 
@@ -44,6 +45,11 @@ class HomeController
     public function index()
     {
         $this->view->render("home.index", ["name" => "Zanshin", "salute" => "guest"])->withCode(200);
+    }
+
+    public function about()
+    {
+        $this->view->render();
     }
 
 }

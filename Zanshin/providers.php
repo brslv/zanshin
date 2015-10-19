@@ -13,6 +13,18 @@ use Zanshin\Providers\ViewProvider;
  * The folloing rows register the core framework's service providers.
  */
 
+// The base controller, extended if app's controllers
+// are not registered as services in app-providers.
+$container["\\Zanshin\\Components\\Controller\\ControllerComponent"] = function ($c) {
+    return new \Zanshin\Components\Controller\ControllerComponent($c["ViewContract"],
+        $c["InputContract"],
+        $c["SessionContract"]);
+};
+
+$container["\\App\\Controllers\\HomeController"] = function ($c) {
+    return new \App\Controllers\HomeController($c["ViewContract"], $c["InputContract"], $c["SessionContract"]);
+};
+
 container()->register(new ApplicationProvider()); // Application
 
 container()->register(new DotenvProvider()); // Dotenv
