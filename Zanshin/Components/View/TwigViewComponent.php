@@ -14,10 +14,23 @@ use Zanshin\Contracts\SessionContract;
  */
 class TwigViewComponent extends ViewComponentAbstract
 {
+    /**
+     * @var Twig_Loader_Filesystem
+     */
     private $loader;
 
+    /**
+     * @var Twig_Environment
+     */
     private $twig;
 
+    /**
+     * Constructor.
+     *
+     * @param SessionContract $session
+     * @param Twig_Loader_Filesystem $loader
+     * @param Twig_Environment $twig
+     */
     public function __construct(SessionContract $session,
                                 Twig_Loader_Filesystem $loader,
                                 Twig_Environment $twig)
@@ -28,7 +41,14 @@ class TwigViewComponent extends ViewComponentAbstract
         $this->twig = $twig;
     }
 
-    public function render($view = null, array $params = [], $code = null)
+    /**
+     * Renders a given view.
+     *
+     * @param null $view
+     * @param array $params
+     * @return $this
+     */
+    public function render($view = null, array $params = [])
     {
         if (is_null($view) && ! isset($this->defaultView)) {
             throw new \LogicException("Cannot resolve the view to be rendered.", 500);
@@ -41,15 +61,12 @@ class TwigViewComponent extends ViewComponentAbstract
         $view = str_replace(container("twig_views_file_extension"), "", $view);
         $view = str_replace(".", DIRECTORY_SEPARATOR, $view) . container("twig_views_file_extension");
 
-        if ($code) {
-            http_response_code($code);
-        }
-
         $this->twig->display($view, $params);
 
         return $this;
     }
 
+    // TODO: Extract in Response class
     /**
      * Attach a specific HTTP status code to the response.
      *

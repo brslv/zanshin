@@ -63,4 +63,14 @@ interface RouterContract
      */
     public function dispatch();
 
+    /**
+     * Generates the path for the default view, extracted from the controller and action.
+     * Stores it in the session, for future use.
+     *
+     * @param $controller
+     * @param $action
+     * @return mixed
+     */
+    public function generatePathForDefaultView($controller, $action);
+
 }

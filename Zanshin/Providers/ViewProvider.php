@@ -31,15 +31,23 @@ class ViewProvider implements ServiceProviderInterface
                 $twigViewsCacheDirectory = $this->normalizeDir("Views/cache");
             }
 
-            $loader = new \Twig_Loader_Filesystem($twigViewsDirectory); // TODO: Extract in config
+            $loader = new \Twig_Loader_Filesystem($twigViewsDirectory);
             $twig = new \Twig_Environment($loader, [
-                'cache' => $twigViewsCacheDirectory, // TODO: Extract in config
+                'cache' => $twigViewsCacheDirectory,
             ]);
 
             return new TwigViewComponent($c["SessionContract"], $loader, $twig);
         };
     }
 
+    /**
+     * Normalize dir.
+     *
+     * Uses realpath to provide the path to a directory in App.
+     *
+     * @param $dir
+     * @return string
+     */
     private function normalizeDir($dir)
     {
         $_dir = ltrim($dir, "/");

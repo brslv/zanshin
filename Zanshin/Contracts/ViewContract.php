@@ -15,10 +15,9 @@ interface ViewContract
      *
      * @param string|null $view
      * @param array $parms
-     * @param int|null $code
      * @return mixed
      */
-    public function render($view = null, array $parms = [], $code = null);
+    public function render($view = null, array $parms = []);
 
     /**
      * Attach a specific HTTP status code to the response.

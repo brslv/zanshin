@@ -2,6 +2,7 @@
 
 namespace Zanshin\Components\Router;
 
+use Zanshin\Components\View\ViewConstants;
 use Zanshin\Contracts\RouterContract;
 use Zanshin\Contracts\SessionContract;
 
@@ -249,22 +250,42 @@ class AltoRouterComponent implements RouterContract
         return;
     }
 
-    // TODO: add this method to the contract.
-    public function generatePathForDefaultView($controller, $action) 
+    /**
+     * Generates the path for the default view, extracted from the controller and action.
+     * Stores it in the session, for future use.
+     *
+     * @param $controller
+     * @param $action
+     * @return mixed
+     */
+    public function generatePathForDefaultView($controller, $action)
     {
-        $parentFolder = substr($controller, 0, strpos($controller, "Controller"));
-        $_parentFolder = strtolower($parentFolder);
-        $view = $action;
 
-        $this->session->set("viewFolder", $_parentFolder);
-        $this->session->set("viewFile", $view);
-        $pathForDefaultView = $_parentFolder . "." . $view;
-        $this->session->set("defaultView", $pathForDefaultView);
+        $defaultViewFolder = $this->parseDefaultViewFolder($controller);
+        $defaultViewFileName = $action;
 
-        // check if the folder/view exist
-        // if exist -> set defaultView
-        // if not -> don't do anything
+        $this->session->set(ViewConstants::DEFAULT_VIEW_FOLDER, $defaultViewFolder);
+        $this->session->set(ViewConstants::DEFAULT_VIEW_FILE, $defaultViewFileName);
+        $pathForDefaultView = sprintf("%s.%s", $defaultViewFolder, $defaultViewFileName);
+        $this->session->set(ViewConstants::DEFAULT_VIEW_FOLDER_AND_FILE, $pathForDefaultView);
+
         return $pathForDefaultView;
+    }
+
+    /**
+     * Parse default view folder.
+     *
+     * Chops off the "Controller" suffix and turns to
+     * lowercase the remaining part.
+     *
+     * @param $controller
+     * @return string
+     */
+    private function parseDefaultViewFolder($controller)
+    {
+        $defaultViewFolder = substr($controller, 0, strpos($controller, "Controller"));
+
+        return strtolower($defaultViewFolder);
     }
 
 }
